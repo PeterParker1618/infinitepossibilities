@@ -1,0 +1,223 @@
+package dao;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import service.*;
+import bean.Bean;
+
+ 
+
+//class declaration
+public class Dao {
+    Service s=new Service();//creation of service object 
+List<Bean> l=new ArrayList<Bean>();//creating list
+public void addUserData(Bean b) {
+    l.add(b);
+    Iterator itr=l.iterator();//create iterator to iterate the list
+    System.out.println("the details are");
+    while(itr.hasNext()) {
+        System.out.println(itr.next());//printing list values
+    }
+    //System.out.println(l);
+}
+public List<Bean> retrieveData(){
+    return l;
+}
+}
+ 
+
+package dao;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import service.*;
+import bean.Bean;
+
+ 
+
+//class declaration
+public class Dao {
+    Service s=new Service();//creation of service object 
+List<Bean> l=new ArrayList<Bean>();//creating list
+public void addUserData(Bean b) {
+    l.add(b);
+    Iterator itr=l.iterator();//create iterator to iterate the list
+    System.out.println("the details are");
+    while(itr.hasNext()) {
+        System.out.println(itr.next());//printing list values
+    }
+    //System.out.println(l);
+}
+public List<Bean> retrieveData(){
+    return l;
+}
+}
+
+
+
+
+
+
+
+
+
+package service;
+import bean.*;
+import dao.*;
+public class Service {
+    Bean be;
+    public Service() {
+        
+    }
+public void calculation(Bean b) {
+    
+    Dao d=new Dao();
+
+ 
+
+    float cost=2*(b.getKilometers())*(b.getWeight());
+    float CGSTcost=(float)(0.035)*cost;
+    float SGSTcost=(float)(0.035)*cost;
+    b.setCost(cost);
+    b.setCGSTcost(CGSTcost);
+    b.setSGSTcost(SGSTcost);
+    d.addUserData(b);
+}
+}
+
+
+
+
+
+
+
+
+
+package bean;
+
+ 
+
+public class Bean {
+    float weight;
+    float kilometers;
+    int id;
+    float cost;
+    float CGSTcost;
+    @Override
+    public String toString() {
+        return "Bean [weight=" + weight + ", kilometers=" + kilometers + ", id=" + id + ", cost=" + cost + ", CGSTcost="
+                + CGSTcost + ", SGSTcost=" + SGSTcost + "]";
+    }
+    public float getCGSTcost() {
+        return CGSTcost;
+    }
+    public void setCGSTcost(float cGSTcost) {
+        CGSTcost = cGSTcost;
+    }
+    public float getSGSTcost() {
+        return SGSTcost;
+    }
+    public void setSGSTcost(float sGSTcost) {
+        SGSTcost = sGSTcost;
+    }
+    float SGSTcost;
+    public float getCost() {
+        return cost;
+    }
+    public void setCost(float cost) {
+        this.cost = cost;
+    }
+    
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id=id;
+    }
+    
+public float getWeight() {
+        return weight;
+    }
+    public void setWeight(float weight) {
+        this.weight = weight;
+    }
+    public float getKilometers() {
+        return kilometers;
+    }
+    public void setKilometers(float kilometers) {
+        this.kilometers = kilometers;
+    }
+public void userBeanData(float weight,float kilometers,int id) {
+    this.weight=weight;
+    this.kilometers=kilometers;
+    this.id=id;
+}
+}
+
+
+
+
+
+
+
+package freightinvoice_830960;
+import bean.*;
+
+ 
+
+import java.util.Random;
+import java.util.Scanner;
+import service.*;
+public class UserIO {
+    
+    public static void main(String args[]) {
+        Bean b=new Bean();
+        Checker c=new Checker();
+        Service s=new Service();
+        Scanner sc=new Scanner(System.in);
+System.out.println("Enter the package weight in kg");
+float weight=c.weightCheck(sc.nextFloat());
+System.out.println("enter the kilometers");
+float kilometers=c.kmCheck(sc.nextFloat());
+Random rand=new Random();
+int id= rand.nextInt();
+    b.userBeanData(weight,kilometers,id);
+    s.calculation(b);
+    }
+}
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+//********************************************************************************************************************************
+class Checker{
+    
+ float weightCheck(float weight) {
+    Scanner sc=new Scanner(System.in);
+    if(weight>1)
+        return weight;
+    else
+        System.out.println("enter the weight more than 1kg");
+    weight=sc.nextFloat();
+return weight;    
+}
+ float kmCheck(float kilometers) {
+    Scanner sc=new Scanner(System.in);
+    if(kilometers<100)
+        return kilometers;
+    else
+        System.out.println("enter distence less than 100km");
+    kilometers=sc.nextFloat();
+    return kilometers;
+}
+}
